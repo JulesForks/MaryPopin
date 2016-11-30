@@ -295,7 +295,10 @@ CG_INLINE CGRect    BkRectInRectWithAlignementOption(CGRect myRect, CGRect refRe
     
     [UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         //Move frame
-        [self.view setFrame:CGRectOffset(self.view.frame, 0.0f, 70.0f - CGRectGetMinY(self.view.frame))];
+        CGFloat min = [self keyboardMoveAdjustment];//  80;//CGRectGetMinY(self.view.frame);
+        [self.view setFrame:CGRectOffset(self.view.frame, 0.0f, 70.0f - min)];
+        //[self.view setFrame:CGRectOffset(self.view.frame, 0.0f, CGRectGetMinY(self.view.frame) - 70.0f)];
+
     } completion:NULL];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -541,13 +544,29 @@ CG_INLINE CGRect    BkRectInRectWithAlignementOption(CGRect myRect, CGRect refRe
 
 - (BKTPopinOption)popinOptions
 {
-    return [objc_getAssociatedObject(self, _cmd) intValue];
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
 }
 
 - (void)setPopinOptions:(BKTPopinOption)popinOptions
 {
     objc_setAssociatedObject(self, @selector(popinOptions),  [NSNumber numberWithInt:popinOptions], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
+
+
+
+- (CGFloat)keyboardMoveAdjustment
+{
+    return [objc_getAssociatedObject(self, _cmd) integerValue];
+}
+
+- (void)setKeyboardMoveAdjustment:(NSNumber*)adjustment
+{
+    objc_setAssociatedObject(self, @selector(keyboardMoveAdjustment), adjustment, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+
 
 - (BKTBlurParameters *)blurParameters
 {
