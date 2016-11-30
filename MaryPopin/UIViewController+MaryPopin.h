@@ -309,6 +309,9 @@ typedef NS_ENUM(NSInteger, BKTPopinAlignementOption) {
  */
 - (void)setPopinOptions:(BKTPopinOption)popinOptions;
 
+- (CGFloat)keyboardMoveAdjustment;
+
+- (void)setKeyboardMoveAdjustment:(NSNumber*)adjustment;
 
 /**
  *  Get the custom in animation block. Default value is nil.
