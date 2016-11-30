@@ -295,7 +295,9 @@ CG_INLINE CGRect    BkRectInRectWithAlignementOption(CGRect myRect, CGRect refRe
     
     [UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         //Move frame
-        CGFloat min = [self keyboardMoveAdjustment];//  80;//CGRectGetMinY(self.view.frame);
+        CGFloat min = [self keyboardMoveAdjustment];
+	if (min == 0.0f)
+		min = CGRectGetMinY(self.view.frame);
         [self.view setFrame:CGRectOffset(self.view.frame, 0.0f, 70.0f - min)];
         //[self.view setFrame:CGRectOffset(self.view.frame, 0.0f, CGRectGetMinY(self.view.frame) - 70.0f)];
 
