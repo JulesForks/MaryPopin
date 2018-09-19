@@ -181,6 +181,8 @@ CG_INLINE CGRect    BkRectInRectWithAlignementOption(CGRect myRect, CGRect refRe
             bgImage = [bgImage marypopin_applyBlurWithRadius:parameters.radius tintColor:parameters.tintColor saturationDeltaFactor:parameters.saturationDeltaFactor maskImage:nil];
             UIImageView *bgImageView = [[UIImageView alloc] initWithImage:bgImage];
             bgImageView.alpha = parameters.alpha;
+	    bgImageView.tag = kBlurImageTag;
+            dimmingView.tag = kBlurViewTag;
             [dimmingView addSubview:bgImageView];
         } else {
             [dimmingView setBackgroundColor:[UIColor colorWithWhite:0.0f alpha:0.5f]];
