@@ -222,6 +222,8 @@ typedef NS_ENUM(NSInteger, BKTPopinAlignementOption) {
 /// @name Properties accessors
 ///---------------------
 
+- (void)setNewBackgroundPopupSize:(CGSize)size;
+
 /**
  *  A reference to the popin presented as a child controller.
  *
