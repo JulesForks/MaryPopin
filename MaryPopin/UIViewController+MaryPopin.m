@@ -29,6 +29,9 @@
 //Standard margin value on iOS
 #define kMaryPopinStandardMargin 20.0f
 
+#define kBlurViewTag  386583
+#define kBlurImageTag 386617
+
 CG_INLINE CGRect    BkRectCenterInRect(CGRect myRect, CGRect refRect)
 {
 	myRect.origin.x = refRect.origin.x + roundf(refRect.size.width / 2.0  - myRect.size.width / 2.0);
@@ -117,6 +120,35 @@ CG_INLINE CGRect    BkRectInRectWithAlignementOption(CGRect myRect, CGRect refRe
 @implementation UIViewController (MaryPopin)
 
 #pragma mark - Popin presentation methods
+
+- (void)setNewBackgroundPopupSize:(CGSize)size
+{
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+
+    for (UIView *i in self.parentViewController.view.subviews)
+    {
+        if ([i isKindOfClass:[UIView class]])
+        {
+            UIView *newView = (UIView *)i;
+            if (newView.tag == kBlurViewTag)
+            {
+                [newView setFrame: screenRect];
+
+                for (UIView *j in newView.subviews)
+                {
+                    if ([j isKindOfClass:[UIImageView class]])
+                    {
+                        UIImageView *newImage = (UIImageView *)j;
+                        if (newImage.tag == kBlurImageTag)
+                        {
+                            [newImage setFrame: screenRect];
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 - (void)presentPopinController:(UIViewController *)popinController animated:(BOOL)animated
                     completion:(void(^)(void))completion
